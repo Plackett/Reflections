@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+#pragma warning disable
 public class Beam : MonoBehaviour
 {
-    Vector3 pos, dir;
+    public Vector3 pos, dir;
     GameObject beampointer;
     LineRenderer beam;
     PMovement plr;
+    public Material mat;
     List<Vector3> beampoints = new List<Vector3>();
     public Material gold;
 
-    public Beam(Vector3 pos, Vector3 dir, Material material)
+    public void MakeBeam(Vector3 pos, Vector3 dir, Material material)
     {
         this.beam = new LineRenderer();
         this.beampointer = new GameObject();
@@ -29,16 +30,24 @@ public class Beam : MonoBehaviour
         CastRay(pos, dir, beam);
     }
 
+    void Update()
+    {
+        this.beam.positionCount = 0;
+        beampoints.Clear();
+        CastRay(pos, dir, beam);
+    }
+
     void CastRay(Vector3 pos, Vector3 dir, LineRenderer beam)
     {
         beampoints.Add(pos);
         Ray ray = new Ray(pos, dir);
         RaycastHit hit;
-        
-        if(Physics.Raycast(ray, out hit, 30, 1))
+
+        if (Physics.Raycast(ray, out hit, 30, 1))
         {
             hitCheck(hit, dir, beam);
-        } else
+        }
+        else
         {
             beampoints.Add(ray.GetPoint(30));
             UpdateBeam();
@@ -50,7 +59,7 @@ public class Beam : MonoBehaviour
         int count = 0;
         beam.positionCount = beampoints.Count;
 
-        for(var a = 0; a < beampoints.Count; a++)
+        for (var a = 0; a < beampoints.Count; a++)
         {
             beam.SetPosition(count, beampoints[a]);
             count++;
@@ -59,26 +68,55 @@ public class Beam : MonoBehaviour
 
     void hitCheck(RaycastHit hinfo, Vector3 direction, LineRenderer beam)
     {
-        if(hinfo.collider.gameObject.tag == "M")
+        if (hinfo.collider.gameObject.tag == "M")
         {
             Vector3 pos = hinfo.point;
             Vector3 dir = Vector3.Reflect(direction, hinfo.normal);
 
             CastRay(pos, dir, beam);
-        } else if(hinfo.collider.gameObject.tag == "Goal") 
+        }
+        else if (hinfo.collider.gameObject.tag == "Goal")
         {
             beampoints.Add(hinfo.point);
             hinfo.collider.gameObject.GetComponent<Renderer>().material = gold;
+            hinfo.collider.gameObject.GetComponent<WinCondition>().Activate();
             UpdateBeam();
-        } else if(hinfo.collider.gameObject.tag == "Player")
+            checkWin();
+        }
+        else if (hinfo.collider.gameObject.tag == "Player")
         {
-            GameObject.Find("plr").GetComponent<PMovement>().Death();
-            UpdateBeam();
+            if(hinfo.collider.gameObject.GetComponent<PMovement>().enabled == true)
+            {
+                GameObject.Find("plr").GetComponent<PMovement>().Death();
+                UpdateBeam();
+            } else
+            {
+                beampoints.Add(hinfo.point);
+                UpdateBeam();
+            }
         }
         else
         {
             beampoints.Add(hinfo.point);
             UpdateBeam();
+        }
+    }
+
+    public void checkWin()
+    {
+        int btndowns = 0;
+        int total = 0;
+        foreach (GameObject btn in GameObject.FindGameObjectsWithTag("Goal"))
+        {
+            if (btn.GetComponent<WinCondition>().activated == true)
+            {
+                btndowns++;
+            }
+            total++;
+        }
+        if (btndowns == total)
+        {
+            Destroy(GameObject.Find("exit"));
         }
     }
 }

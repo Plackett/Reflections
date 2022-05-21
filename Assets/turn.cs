@@ -18,13 +18,15 @@ public class turn : MonoBehaviour
     {
         if(Input.GetAxis("Horizontal") != 0)
         {
-            target.transform.Rotate(0f, 0f, (Input.GetAxis("Horizontal") * 5));
+            target.transform.Rotate(0f, 0f, (Input.GetAxis("Horizontal")));
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
             GameObject.Find("plr").GetComponent<PMovement>().enabled = true;
+            GameObject.Find("plr").GetComponent<Rigidbody>().isKinematic = false;
             this.enabled = false;
         }
+        GameObject plr = GameObject.Find("plr");
     }
 
     public void reset()

@@ -22,7 +22,6 @@ public class deathcounter : MonoBehaviour
         for(int i = 0; i < dcount; i++)
         {
             string name = ("remove" + i.ToString());
-            Debug.Log(name);
             if (GameObject.Find(name))
             {
                 Destroy(GameObject.Find(name));

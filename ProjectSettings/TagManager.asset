@@ -9,6 +9,7 @@ TagManager:
   - left
   - right
   - atlas
+  - exit
   layers:
   - Default
   - TransparentFX
