@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class deathcounter : MonoBehaviour
 {
     public int dcount;
+    public TextMeshProUGUI dcounter;
 
     public void Death()
     {
         dcount++;
+        dcounter.SetText("Deaths: " + dcount);
     }
     // Start is called before the first frame update
     void Start()

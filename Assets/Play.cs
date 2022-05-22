@@ -11,16 +11,10 @@ public class Play : MonoBehaviour
     public Canvas two;
     public string LevelProg;
     public List<Button> btnList = new List<Button>();
-    // Start is called before the first frame update
-    void Start()
+    
+    public void Quit()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Application.Quit();
     }
 
     public void UpdateProgButtons()
@@ -67,11 +61,9 @@ public class Play : MonoBehaviour
         if (PlayerPrefs.HasKey("Level"))
         {
             LevelProg = PlayerPrefs.GetString("Level");
-            Debug.Log("Game data loaded!");
         }
         else
         {
-            Debug.LogError("There is no save data!");
             LevelProg = "000000";
         }
     }
@@ -80,7 +72,6 @@ public class Play : MonoBehaviour
     {
         PlayerPrefs.SetString("Level", data);
         PlayerPrefs.Save();
-        Debug.Log("Game data saved!");
     }
 
     public void ResetData()
@@ -90,7 +81,6 @@ public class Play : MonoBehaviour
         SaveGame(LevelProg);
         UpdateProgButtons();
         Pressback();
-        Debug.Log("Data reset complete");
     }
 
     public void Pressback()
@@ -103,7 +93,7 @@ public class Play : MonoBehaviour
     {
         if(EventSystem.current.currentSelectedGameObject.name != btnList[0].name)
         {
-            //SceneManager.LoadScene(EventSystem.current.currentSelectedGameObject.name);
+            SceneManager.LoadScene(EventSystem.current.currentSelectedGameObject.name);
         } else
         {
             SceneManager.LoadScene("SampleScene");
