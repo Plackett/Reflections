@@ -10,6 +10,8 @@ TagManager:
   - right
   - atlas
   - exit
+  - atlas2
+  - light
   layers:
   - Default
   - TransparentFX

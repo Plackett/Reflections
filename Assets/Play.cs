@@ -10,6 +10,8 @@ public class Play : MonoBehaviour
     public Canvas one;
     public Canvas two;
     public string LevelProg;
+    [SerializeField] private soundeffects sf;
+    [SerializeField] private AudioClip select;
     public List<Button> btnList = new List<Button>();
     
     public void Quit()
@@ -43,6 +45,8 @@ public class Play : MonoBehaviour
 
     public void Press()
     {
+        sf.player.pitch = 2;
+        sf.PlayAudio(select);
         LoadGame();
         // checks for empty save data
         if(LevelProg == "000000")
@@ -85,13 +89,17 @@ public class Play : MonoBehaviour
 
     public void Pressback()
     {
+        sf.player.pitch = 1;
+        sf.PlayAudio(select);
         two.enabled = false;
         one.enabled = true;
     }
 
     public void LevelSelect()
     {
-        if(EventSystem.current.currentSelectedGameObject.name != btnList[0].name)
+        sf.player.pitch = 2;
+        sf.PlayAudio(select);
+        if (EventSystem.current.currentSelectedGameObject.name != btnList[0].name)
         {
             SceneManager.LoadScene(EventSystem.current.currentSelectedGameObject.name);
         } else

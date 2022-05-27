@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 #pragma warning disable
 public class Beam : MonoBehaviour
 {
@@ -11,6 +13,13 @@ public class Beam : MonoBehaviour
     public Material mat;
     List<Vector3> beampoints = new List<Vector3>();
     public Material gold;
+    public GameObject exit;
+    public List<GameObject> btns;
+    private bool used;
+    [SerializeField] public soundeffects sf;
+    [SerializeField] public AudioClip winsound;
+    [SerializeField] public Image ins2;
+    [SerializeField] public Image ins3;
 
     public void MakeBeam(Vector3 pos, Vector3 dir, Material material)
     {
@@ -26,15 +35,19 @@ public class Beam : MonoBehaviour
         this.beam.material = material;
         this.beam.startColor = Color.white;
         this.beam.endColor = Color.white;
+        this.beampointer.tag = "light";
 
         CastRay(pos, dir, beam);
     }
 
     void Update()
     {
-        this.beam.positionCount = 0;
-        beampoints.Clear();
-        CastRay(pos, dir, beam);
+        if(used == false)
+        {
+            this.beam.positionCount = 0;
+            beampoints.Clear();
+            CastRay(pos, dir, beam);
+        }
     }
 
     void CastRay(Vector3 pos, Vector3 dir, LineRenderer beam)
@@ -77,9 +90,14 @@ public class Beam : MonoBehaviour
         }
         else if (hinfo.collider.gameObject.tag == "Goal")
         {
+            sf.PlayAudio(winsound);
             beampoints.Add(hinfo.point);
             hinfo.collider.gameObject.GetComponent<Renderer>().material = gold;
             hinfo.collider.gameObject.GetComponent<WinCondition>().Activate();
+            exit.GetComponent<endanim>().activatelight();
+            beam.material = gold;
+            hinfo.collider.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            used = true;
             UpdateBeam();
             checkWin();
         }
@@ -87,7 +105,7 @@ public class Beam : MonoBehaviour
         {
             if(hinfo.collider.gameObject.GetComponent<PMovement>().enabled == true)
             {
-                GameObject.Find("plr").GetComponent<PMovement>().Death();
+                hinfo.collider.gameObject.GetComponent<PMovement>().Death();
                 UpdateBeam();
             } else
             {
@@ -106,7 +124,7 @@ public class Beam : MonoBehaviour
     {
         int btndowns = 0;
         int total = 0;
-        foreach (GameObject btn in GameObject.FindGameObjectsWithTag("Goal"))
+        foreach (GameObject btn in btns)
         {
             if (btn.GetComponent<WinCondition>().activated == true)
             {
@@ -116,7 +134,12 @@ public class Beam : MonoBehaviour
         }
         if (btndowns == total)
         {
-            Destroy(GameObject.Find("exit"));
+            exit.GetComponent<endanim>().endanimation();
+            if(SceneManager.GetActiveScene().buildIndex == 1 && ins2.enabled == true)
+            {
+                ins2.enabled = false;
+                ins3.enabled = true;
+            }
         }
     }
 }
