@@ -36,7 +36,7 @@ public class endanim : MonoBehaviour
                 numnext++;
             }
         }
-        if(numnext <= (lights.Count + 1))
+        if(numnext <= (lights.Count + 1) && lights.Count != 0)
         {
             lights[numnext].GetComponent<SpriteRenderer>().enabled = true;
         }

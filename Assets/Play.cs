@@ -9,11 +9,27 @@ public class Play : MonoBehaviour
 {
     public Canvas one;
     public Canvas two;
+    public Canvas three;
     public string LevelProg;
     [SerializeField] private soundeffects sf;
+    [SerializeField] private soundeffects sf2;
     [SerializeField] private AudioClip select;
+    [SerializeField] private AudioClip menumusic;
+    [SerializeField] private AudioClip winmusic;
     public List<Button> btnList = new List<Button>();
     
+    private void Start()
+    {
+        LoadGame();
+        if (LevelProg == "222211" || LevelProg == "222221")
+        {
+            sf2.PlayAudio(winmusic);
+        } else
+        {
+            sf2.PlayAudio(menumusic);
+        }
+    }
+
     public void Quit()
     {
         Application.Quit();
@@ -93,6 +109,14 @@ public class Play : MonoBehaviour
         sf.PlayAudio(select);
         two.enabled = false;
         one.enabled = true;
+    }
+
+    public void Presscreds()
+    {
+        sf.player.pitch = 2;
+        sf.PlayAudio(select);
+        two.enabled = false;
+        three.enabled = true;
     }
 
     public void LevelSelect()

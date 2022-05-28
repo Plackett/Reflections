@@ -144,10 +144,10 @@ public class PMovement : MonoBehaviour
                     if(bid == 4)
                     {
                         LevelProg = PlayerPrefs.GetString("Level");
-                        if (LevelProg[4] + string.Empty == "0" && LevelProg[5] + string.Empty == "0")
+                        if (LevelProg[4] + string.Empty == "0" && LevelProg[4] + string.Empty == "0")
                         {
                             LevelProg = LevelProg.Remove(3, 3);
-                            LevelProg = LevelProg.Insert(3, "201");
+                            LevelProg = LevelProg.Insert(3, "211");
                         } else
                         {
                             LevelProg = LevelProg.Remove(3, 1);
@@ -159,11 +159,11 @@ public class PMovement : MonoBehaviour
                         if(LevelProg[4] + string.Empty == "0")
                         {
                             LevelProg = LevelProg.Remove(4, 2);
-                            LevelProg.Insert(4, "12");
+                            LevelProg.Insert(4, "21");
                         } else
                         {
-                            LevelProg = LevelProg.Remove(5, 1);
-                            LevelProg.Insert(5, "2");
+                            LevelProg = LevelProg.Remove(4, 1);
+                            LevelProg.Insert(4, "2");
                         }
                     }
                 }
