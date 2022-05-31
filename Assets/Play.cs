@@ -111,6 +111,14 @@ public class Play : MonoBehaviour
         one.enabled = true;
     }
 
+    public void Pressbackcreds()
+    {
+        sf.player.pitch = 1;
+        sf.PlayAudio(select);
+        two.enabled = true;
+        three.enabled = false;
+    }
+
     public void Presscreds()
     {
         sf.player.pitch = 2;
