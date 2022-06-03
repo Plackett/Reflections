@@ -9,6 +9,7 @@ var loadingContainer = null;
 var loadingText = null;
 var runtimeInitialized = false;
 var canvasAspectRatio = false;
+var aspectRatio = "1920:1080";
 
 function updateLoadingText(timestamp) {
 
