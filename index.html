@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Reflections</title>
   </head>
-  <body style="text-align: center">
+  <body style="text-align: center; background: #545454">
     <canvas id="unity-canvas" width=640 height=480 style="width: 640px; height: 480px; background: #545454"></canvas>
     <script src="Build/webgl.loader.js"></script>
     <script>
@@ -13,7 +13,7 @@
         // Mobile device style: fill the whole browser client area with the game canvas:
         var meta = document.createElement('meta');
         meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=yes, shrink-to-fit=yes';
         document.getElementsByTagName('head')[0].appendChild(meta);
       }
 
