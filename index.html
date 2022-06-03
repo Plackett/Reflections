@@ -1,26 +1,22 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico" />
-    <link rel="stylesheet" href="TemplateData/style.css" />
-    <script src="TemplateData/UnityProgress.js"></script>
-    <script src="%UNITY_WEBGL_LOADER_URL%"></script>
-    <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "%UNITY_WEBGL_BUILD_URL%");
-    </script>
-  </head>
-  <body>
-    <div class="webgl-content">
-      <div id="unityContainer"></div>
-      <div class="footer">
-        <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
-      </div>
-	  <div style="align: center;">
-		<iframe src="https://itch.io/embed/1549634?bg_color=545454&amp;fg_color=ffffff&amp;link_color=878787&amp;border_color=bebebe" width="40%" height="30%" frameborder="0"><a href="https://plackett.itch.io/reflections">Reflections by plackett</a></iframe>
-	  </div>
-    </div>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Unity WebGL Player | RealTimeRendering</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="responsiveMinimalTemplateStyles.css"/>
+  <script src="%UNITY_WEBGL_LOADER_URL%"></script>
+  <script src="responsiveMinimalTemplateLoader.js"></script>
+  <script>
+      instantiateUnity("%UNITY_WEBGL_BUILD_URL%","%UNITY_CUSTOM_ASPECT_RATIO%");
+  </script>
+</head>
+<body>
+<div id="gameContainer" style="width: 100%; height: 100%"></div>
+<div id="loadingContainer"><span>Loading</span></div>
+<div style="align: center;">
+	<iframe src="https://itch.io/embed/1549634?bg_color=414141&amp;fg_color=ffffff&amp;link_color=5badfa&amp;border_color=333333" width="30%" height="40%" frameborder="0"><a href="https://plackett.itch.io/reflections">Reflections by plackett</a></iframe>
+</div>
+</body>
 </html>
